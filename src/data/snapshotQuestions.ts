@@ -1,0 +1,91 @@
+import { skills } from '@/data/skills';
+import { SnapshotQuestion } from '@/types/skill';
+
+const questionText: Record<string, string> = {
+  // Movement
+  'lifts-head': 'Does your child lift their head briefly during tummy time?',
+  'rolls-over': 'Have you noticed your child rolling from tummy to back or back to tummy?',
+  'sits-independently': 'Can your child usually sit without using their hands or a person for support?',
+  'crawls-or-scoots': 'Does your child move across the floor on their own — crawling, scooting, or rolling to get somewhere?',
+  'pulls-to-stand': 'Have you noticed your child pulling themselves up to standing using furniture or your hands?',
+  'walks-independently': 'Can your child usually walk across a room without holding on?',
+  runs: 'Does your child run with both feet briefly leaving the ground?',
+  'jumps-two-feet': 'Have you noticed your child jumping with both feet off the ground at once?',
+  'balances-one-foot': 'Can your child usually balance on one foot for a couple of seconds?',
+  'throws-ball': 'Does your child throw a ball toward a person or target on purpose?',
+  // Hands & Making
+  'reaches-for-objects': 'Does your child reach out toward toys or objects they want?',
+  'transfers-object-hand-to-hand': 'Have you noticed your child passing an object from one hand to the other?',
+  'uses-pincer-grasp': 'Does your child pick up small things using their thumb and pointer finger?',
+  'stacks-blocks': 'Can your child usually stack a couple of blocks on top of each other?',
+  'turns-pages': 'Does your child turn the pages of a book, even if several at once?',
+  scribbles: 'Have you noticed your child making marks or scribbles with a crayon or marker?',
+  'uses-spoon': 'Does your child use a spoon to scoop and eat food, even with some spilling?',
+  'copies-a-circle': 'Can your child usually copy a circle after watching you draw one?',
+  'uses-scissors-with-help': 'Does your child make snips with child-safe scissors with your help?',
+  'draws-a-simple-person': 'Have you noticed your child drawing a person with a head and some body parts?',
+  // Language
+  coos: 'Does your child make soft cooing sounds in response to your voice or face?',
+  babbles: 'Have you noticed your child babbling with repeated sounds like "ba-ba" or "da-da"?',
+  'responds-to-name': "Does your child usually turn or look when you say their name?",
+  'points-to-request': 'Does your child point at something to ask for it?',
+  'points-to-show-interest': 'Have you noticed your child pointing just to share something interesting with you?',
+  'says-first-word': 'Does your child use a consistent sound or word for the same thing each time?',
+  'combines-two-words': 'Have you noticed your child putting two words together, like "more milk"?',
+  'follows-two-step-directions': 'Can your child usually follow a direction with two parts, like "pick up the ball and bring it here"?',
+  'asks-simple-questions': 'Does your child ask simple questions like "what\'s that?" or "where\'s daddy?"',
+  'tells-a-simple-story': 'Can your child usually describe a few events in order, like what happened during the day?',
+  // Thinking
+  'tracks-moving-objects': "Do your child's eyes follow a slowly moving toy or face?",
+  'explores-cause-and-effect': 'Have you noticed your child repeating an action, like shaking a rattle, to make the same thing happen again?',
+  'looks-for-hidden-object': 'Does your child search for a toy after watching you hide it under a cloth?',
+  'matches-shapes': 'Can your child usually fit a shape into a matching hole or pair similar shapes?',
+  'sorts-by-color-or-size': 'Have you noticed your child grouping objects by color or size?',
+  'solves-simple-puzzle': 'Does your child complete a simple puzzle with a few large pieces?',
+  'counts-small-groups': 'Have you noticed your child counting a few objects, even if not always accurately?',
+  'asks-why': 'Does your child ask "why" about everyday things?',
+  'recognizes-patterns': 'Can your child usually continue a simple repeating pattern, like red-blue-red-blue?',
+  'makes-predictions': 'Does your child guess what might happen next in a story or game?',
+  // People
+  'social-smile': 'Does your child smile in response to seeing a familiar face?',
+  'imitates-expressions': 'Have you noticed your child copying a simple face or sound you make?',
+  'recognizes-familiar-people': 'Does your child show clear recognition or excitement around familiar caregivers?',
+  'plays-peekaboo': 'Does your child enjoy and anticipate games like peekaboo?',
+  'shows-object-to-adult': 'Have you noticed your child holding up or bringing an object to show you?',
+  'plays-near-other-children': 'Does your child play contentedly near other children, even without much direct interaction?',
+  'takes-turns-with-help': 'Can your child usually take turns with a toy when you help guide it?',
+  'shares-with-help': 'Have you noticed your child sharing an object with another child when you help guide the moment?',
+  'comforts-someone': 'Does your child offer comfort, like a hug, when someone seems upset?',
+  'joins-group-play': 'Can your child usually join other children in shared, cooperative play?',
+  // Feelings
+  'calms-with-caregiver-support': 'Does your child settle and calm more easily when you hold or soothe them?',
+  'shows-preferences': 'Have you noticed your child clearly showing what they like or dislike?',
+  'reaches-for-comfort': 'Does your child reach or come toward you for comfort when upset?',
+  'says-or-gestures-help': 'Have you noticed your child asking for help with a word or gesture when stuck?',
+  'says-no': 'Does your child say "no" or shake their head to show disagreement?',
+  'names-basic-feelings': 'Can your child usually name a simple feeling, like "happy" or "sad"?',
+  'waits-briefly': 'Does your child tolerate a short wait before getting something they want?',
+  'handles-small-disappointment-with-support': 'Have you noticed your child recovering from a small disappointment with your comfort and support?',
+  'tries-again-after-failure': 'Does your child try again after something does not work the first time?',
+  'uses-calming-strategy': 'Can your child usually use a learned strategy, like deep breaths, to calm down?',
+  // Daily Life
+  'feeds-self-with-fingers': 'Does your child pick up small pieces of food and feed themselves?',
+  'drinks-from-cup-with-help': 'Have you noticed your child drinking from a cup with your help steadying it?',
+  'uses-spoon-with-spilling': 'Does your child attempt to eat with a spoon, even with some spilling?',
+  'helps-clean-up-toys': 'Have you noticed your child helping put away a toy or two when invited?',
+  'washes-hands-with-help': 'Does your child participate in handwashing with your guidance?',
+  'brushes-teeth-with-help': 'Have you noticed your child holding and moving a toothbrush, with you finishing up?',
+  'takes-off-simple-clothing': 'Can your child usually take off simple clothing, like socks or an open jacket?',
+  'uses-potty-or-toilet': 'Does your child show signs of using the potty or toilet, with any level of support?',
+  'follows-bedtime-routine': 'Does your child anticipate and participate in a consistent bedtime routine?',
+  'helps-prepare-simple-food': 'Have you noticed your child helping with simple food prep, like stirring or pouring?',
+};
+
+export const snapshotQuestions: SnapshotQuestion[] = skills
+  .filter((s) => questionText[s.id])
+  .map((s) => ({
+    id: s.id,
+    branch: s.branch,
+    ageBand: s.ageBand,
+    prompt: questionText[s.id],
+  }));
