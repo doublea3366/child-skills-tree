@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Hero } from '@/components/Hero';
 import { TreeNavigation } from '@/components/TreeNavigation';
+import { Sidebar } from '@/components/Sidebar';
 import { SkillsTree } from '@/components/SkillsTree';
 import { SkillSnapshot } from '@/components/SkillSnapshot';
 import { SkillDetailDrawer } from '@/components/SkillDetailDrawer';
@@ -32,7 +33,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex-1 bg-stone-50">
+    <main className="flex-1 bg-[#faf6ee]">
       <Hero onStartSnapshot={() => setSnapshotOpen(true)} onExploreTree={scrollToTree} />
 
       <TreeNavigation
@@ -47,13 +48,28 @@ export default function Home() {
         hasSnapshot={!!snapshotResult}
       />
 
-      <SkillsTree
-        skills={skills}
-        ageBand={ageBand}
-        domain={domain}
-        snapshotResult={snapshotResult}
-        onOpenSkill={setSelectedSkill}
-      />
+      <div className="mx-auto flex max-w-6xl gap-6 lg:px-10">
+        <Sidebar
+          skills={skills}
+          childName={childName}
+          ageBand={ageBand}
+          domain={domain}
+          onAgeChange={setAgeBand}
+          onDomainChange={setDomain}
+          snapshotResult={snapshotResult}
+          onStartSnapshot={() => setSnapshotOpen(true)}
+        />
+        <div className="min-w-0 flex-1">
+          <SkillsTree
+            skills={skills}
+            ageBand={ageBand}
+            domain={domain}
+            snapshotResult={snapshotResult}
+            onOpenSkill={setSelectedSkill}
+            onStartSnapshot={() => setSnapshotOpen(true)}
+          />
+        </div>
+      </div>
 
       <footer className="border-t border-stone-200 bg-white px-6 py-10">
         <div className="mx-auto max-w-3xl space-y-4 text-center">

@@ -24,7 +24,7 @@ export function TreeNavigation({
   const hasActiveFilters = ageBand !== 'all' || domain !== 'all';
 
   return (
-    <div className="sticky top-0 z-30 border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-md">
+    <div className="sticky top-0 z-30 border-b border-stone-200/80 bg-[#faf6ee]/90 backdrop-blur-md lg:hidden">
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-6">
           <AgeFilter value={ageBand} onChange={onAgeChange} />

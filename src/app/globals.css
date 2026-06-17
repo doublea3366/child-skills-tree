@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
+  --background: #faf6ee;
+  --foreground: #2c241a;
+  --trunk-dark: #6b4f33;
+  --trunk-mid: #97784f;
+  --trunk-light: #b9986a;
+  --card-cream: #fdf9f0;
 }
 
 @theme inline {
@@ -22,6 +26,10 @@ body {
   font-family: var(--font-serif), Georgia, serif;
 }
 
+.blob {
+  border-radius: 58% 42% 53% 47% / 48% 58% 42% 52%;
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(16px);
@@ -31,6 +39,20 @@ body {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 154, 62, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(201, 154, 62, 0.12);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 2.8s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

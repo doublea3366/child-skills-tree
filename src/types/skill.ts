@@ -31,6 +31,7 @@ export type Branch = {
   name: string;
   tagline: string;
   meaning: string;
+  icon: string;
   color: string;
   colorSoft: string;
   colorBorder: string;

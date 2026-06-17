@@ -1,5 +1,16 @@
 import { SkillStatus } from '@/types/skill';
 
+export type NodeVisualState = 'completed' | 'growing' | 'inProgress' | 'suggested' | 'locked';
+
+export const nodeVisualState: Record<SkillStatus, NodeVisualState> = {
+  discovered: 'completed',
+  growing: 'growing',
+  emerging: 'inProgress',
+  ready: 'suggested',
+  later: 'locked',
+  watch: 'locked',
+};
+
 export const statusMeta: Record<SkillStatus, { label: string; icon: string; className: string }> = {
   later: {
     label: 'Later',
