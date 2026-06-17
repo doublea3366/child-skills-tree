@@ -11,9 +11,19 @@ type SkillsTreeProps = {
   domain: BranchId | 'all';
   snapshotResult: SnapshotResult | null;
   onOpenSkill: (skill: SkillNodeType) => void;
+  onStartSnapshot: () => void;
 };
 
-export function SkillsTree({ skills, ageBand, domain, snapshotResult, onOpenSkill }: SkillsTreeProps) {
+const ageMarkers = ['0–12', '1', '2', '3', '4', '5'];
+
+export function SkillsTree({
+  skills,
+  ageBand,
+  domain,
+  snapshotResult,
+  onOpenSkill,
+  onStartSnapshot,
+}: SkillsTreeProps) {
   const filtered = filterSkills(skills, { branch: domain, ageBand });
   const withStatus = filtered.map((skill) => ({
     ...skill,
@@ -26,8 +36,23 @@ export function SkillsTree({ skills, ageBand, domain, snapshotResult, onOpenSkil
     <div id="tree" className="relative mx-auto max-w-5xl px-6 py-12">
       <div
         aria-hidden
-        className="absolute bottom-8 left-[2.4rem] top-8 hidden w-px bg-gradient-to-b from-stone-300 via-stone-200 to-transparent sm:block"
+        className="absolute bottom-8 left-[2.4rem] top-8 hidden w-3 rounded-full sm:block"
+        style={{
+          background: 'linear-gradient(180deg, var(--trunk-light), var(--trunk-mid) 45%, var(--trunk-dark))',
+          boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2), inset 2px 0 4px rgba(255,255,255,0.15)',
+        }}
       />
+      <div aria-hidden className="absolute bottom-8 left-[2.4rem] top-8 hidden flex-col justify-between sm:flex">
+        {ageMarkers.map((label) => (
+          <span
+            key={label}
+            className="flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full border-2 border-[#fdf9f0] bg-[var(--trunk-mid)] text-[9px] font-semibold text-white shadow-sm"
+          >
+            {label}
+          </span>
+        ))}
+      </div>
+
       <div className="mb-10 text-center">
         <h2 className="font-serif text-3xl font-semibold text-stone-900 sm:text-4xl">
           The Skills Tree
@@ -38,17 +63,37 @@ export function SkillsTree({ skills, ageBand, domain, snapshotResult, onOpenSkil
         </p>
       </div>
 
+      <div className="mx-auto mb-12 max-w-sm rounded-3xl bg-[#fdf9f0] p-5 text-center shadow-lg shadow-stone-900/5 sm:ml-16 sm:mr-auto sm:text-left">
+        <span aria-hidden className="text-2xl">
+          🌱
+        </span>
+        <p className="mt-1 font-serif text-lg font-semibold text-stone-900">
+          Start with a quick skill check
+        </p>
+        <p className="mt-1 text-sm leading-relaxed text-stone-600">
+          Answer a few gentle questions about what you&rsquo;ve noticed, and we&rsquo;ll personalize
+          this map to your child&rsquo;s own pace.
+        </p>
+        <button
+          type="button"
+          onClick={onStartSnapshot}
+          className="mt-3 rounded-full bg-stone-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-stone-800"
+        >
+          Begin skill check
+        </button>
+      </div>
+
       {visibleBranches.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-stone-300 bg-white p-10 text-center text-stone-500">
           No skills match the current filters. Try resetting the age range or domain.
         </div>
       ) : (
-        <div className="relative flex flex-col gap-8 sm:pl-16">
+        <div className="relative flex flex-col gap-10 sm:pl-16">
           {visibleBranches.map((branch) => (
             <div key={branch.id} className="relative">
               <span
                 aria-hidden
-                className="absolute -left-[2.85rem] top-7 hidden h-4 w-4 rounded-full border-2 border-white sm:block"
+                className="absolute -left-[2.85rem] top-10 hidden h-4 w-4 rounded-full border-2 border-[#faf6ee] sm:block"
                 style={{ backgroundColor: branch.color }}
               />
               <BranchSection

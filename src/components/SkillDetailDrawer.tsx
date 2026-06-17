@@ -26,6 +26,7 @@ export function SkillDetailDrawer({ skill, branch, onClose }: SkillDetailDrawerP
 
   if (!skill || !branch) return null;
   const status = skill.status ? statusMeta[skill.status] : null;
+  const [firstActivity, ...moreActivities] = skill.activities;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
@@ -39,7 +40,7 @@ export function SkillDetailDrawer({ skill, branch, onClose }: SkillDetailDrawerP
         role="dialog"
         aria-modal="true"
         aria-labelledby="skill-detail-title"
-        className="relative z-10 max-h-[88vh] w-full overflow-y-auto rounded-t-3xl bg-white p-6 shadow-2xl motion-safe:animate-[slideUp_0.25s_ease-out] sm:max-h-[85vh] sm:max-w-lg sm:rounded-3xl sm:p-8"
+        className="relative z-10 max-h-[88vh] w-full overflow-y-auto rounded-t-3xl bg-[#fdf9f0] p-6 shadow-2xl shadow-stone-900/15 motion-safe:animate-[slideUp_0.25s_ease-out] sm:max-h-[85vh] sm:max-w-lg sm:rounded-3xl sm:p-8"
       >
         <button
           type="button"
@@ -50,10 +51,19 @@ export function SkillDetailDrawer({ skill, branch, onClose }: SkillDetailDrawerP
           ✕
         </button>
 
-        <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: branch.color }}>
-          {branch.name} · {branch.subBranches.find((sb) => sb.id === skill.subBranch)?.name}
-        </p>
-        <h2 id="skill-detail-title" className="mt-1 font-serif text-2xl font-semibold text-stone-900 sm:text-3xl">
+        <div className="flex items-center gap-3">
+          <span
+            aria-hidden
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg"
+            style={{ backgroundColor: branch.colorSoft }}
+          >
+            {branch.icon}
+          </span>
+          <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: branch.color }}>
+            {branch.name} · {branch.subBranches.find((sb) => sb.id === skill.subBranch)?.name}
+          </p>
+        </div>
+        <h2 id="skill-detail-title" className="mt-3 font-serif text-2xl font-semibold text-stone-900 sm:text-3xl">
           {skill.title}
         </h2>
         <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -68,11 +78,17 @@ export function SkillDetailDrawer({ skill, branch, onClose }: SkillDetailDrawerP
           )}
         </div>
 
-        <Section title="What it is" text={skill.whatItIs} />
+        <Section title="What it means" text={skill.whatItIs} />
         <Section title="Why it matters" text={skill.whyItMatters} />
-        <Section title="What it helps your child discover" text={skill.worldItOpens} />
+        <Section title="What this helps your child discover" text={skill.worldItOpens} />
 
-        <ListSection title="Try this" items={skill.activities} />
+        {firstActivity && (
+          <div className="mt-4 rounded-2xl bg-white/70 p-4">
+            <h3 className="text-sm font-semibold text-stone-800">A suggested activity</h3>
+            <p className="mt-1 text-sm leading-relaxed text-stone-600">{firstActivity}</p>
+          </div>
+        )}
+        <ListSection title="More ideas to try" items={moreActivities} />
         <ListSection title="Watch for" items={skill.watchFor} />
         <ListSection title="Unlocks next" items={skill.unlocks} />
 
