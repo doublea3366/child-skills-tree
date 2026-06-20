@@ -41,7 +41,7 @@ export function TreeOverview({ branches, skills, branchSummaries, onSelectBranch
 
   return (
     <>
-      <div className="relative hidden aspect-[16/10] w-full overflow-hidden rounded-[2rem] game-surface sm:block">
+      <div className="relative hidden h-[78vh] min-h-[560px] w-full overflow-hidden game-surface sm:block">
         <div aria-hidden className="absolute inset-0 game-grid-overlay opacity-[0.06]" />
 
         <Connectors lines={lines} />
@@ -83,7 +83,7 @@ export function TreeOverview({ branches, skills, branchSummaries, onSelectBranch
         })}
       </div>
 
-      <div className="game-surface flex flex-col gap-2.5 rounded-[2rem] p-3 sm:hidden">
+      <div className="game-surface flex flex-col gap-2.5 p-3 sm:hidden">
         {visibleBranches.map((branch) => {
           const branchSkills = skills.filter((s) => s.branch === branch.id);
           const positive = branchSkills.filter(

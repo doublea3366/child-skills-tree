@@ -50,7 +50,7 @@ export function BranchTreeView({ branch, skills, onOpenSkill, onBack }: BranchTr
   return (
     <>
       <div
-        className="relative hidden aspect-[16/11] w-full overflow-hidden rounded-[2rem] sm:block"
+        className="relative hidden h-[78vh] min-h-[560px] w-full overflow-hidden sm:block"
         style={{
           background: `radial-gradient(circle at 50% 0%, ${branch.color}33 0%, #15141c 55%, #0d0c11 100%)`,
           boxShadow: 'inset 0 0 80px rgba(0,0,0,0.5)',
@@ -92,7 +92,7 @@ export function BranchTreeView({ branch, skills, onOpenSkill, onBack }: BranchTr
       </div>
 
       <div
-        className="rounded-[2rem] p-4 sm:hidden"
+        className="p-4 sm:hidden"
         style={{
           background: `radial-gradient(circle at 50% 0%, ${branch.color}33 0%, #15141c 55%, #0d0c11 100%)`,
           boxShadow: 'inset 0 0 80px rgba(0,0,0,0.5)',
