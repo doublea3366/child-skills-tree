@@ -1,9 +1,10 @@
 'use client';
 
-import { branches } from '@/data/branches';
+import { branches, branchMap } from '@/data/branches';
 import { AgeBandId, BranchId, SkillNode as SkillNodeType, SnapshotResult } from '@/types/skill';
 import { filterSkills } from '@/lib/skillFilters';
-import { BranchSection } from '@/components/BranchSection';
+import { TreeOverview } from '@/components/TreeOverview';
+import { BranchTreeView } from '@/components/BranchTreeView';
 
 type SkillsTreeProps = {
   skills: SkillNodeType[];
@@ -12,9 +13,8 @@ type SkillsTreeProps = {
   snapshotResult: SnapshotResult | null;
   onOpenSkill: (skill: SkillNodeType) => void;
   onStartSnapshot: () => void;
+  onDomainChange: (value: BranchId | 'all') => void;
 };
-
-const ageMarkers = ['0–12', '1', '2', '3', '4', '5'];
 
 export function SkillsTree({
   skills,
@@ -23,6 +23,7 @@ export function SkillsTree({
   snapshotResult,
   onOpenSkill,
   onStartSnapshot,
+  onDomainChange,
 }: SkillsTreeProps) {
   const filtered = filterSkills(skills, { branch: domain, ageBand });
   const withStatus = filtered.map((skill) => ({
@@ -30,40 +31,22 @@ export function SkillsTree({
     status: snapshotResult?.nodeStatuses[skill.id] ?? skill.status,
   }));
 
-  const visibleBranches = branches.filter((b) => withStatus.some((s) => s.branch === b.id));
+  const activeBranch = domain !== 'all' ? branchMap[domain] : null;
 
   return (
-    <div id="tree" className="relative mx-auto max-w-5xl px-6 py-12">
-      <div
-        aria-hidden
-        className="absolute bottom-8 left-[2.4rem] top-8 hidden w-3 rounded-full sm:block"
-        style={{
-          background: 'linear-gradient(180deg, var(--trunk-light), var(--trunk-mid) 45%, var(--trunk-dark))',
-          boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2), inset 2px 0 4px rgba(255,255,255,0.15)',
-        }}
-      />
-      <div aria-hidden className="absolute bottom-8 left-[2.4rem] top-8 hidden flex-col justify-between sm:flex">
-        {ageMarkers.map((label) => (
-          <span
-            key={label}
-            className="flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full border-2 border-[#fdf9f0] bg-[var(--trunk-mid)] text-[9px] font-semibold text-white shadow-sm"
-          >
-            {label}
-          </span>
-        ))}
-      </div>
-
+    <div id="tree" className="mx-auto max-w-5xl px-6 py-12">
       <div className="mb-10 text-center">
         <h2 className="font-serif text-3xl font-semibold text-stone-900 sm:text-4xl">
           The Skills Tree
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-stone-600">
-          Scroll through seven developmental branches, from movement and hands to feelings and
-          daily life. Tap any skill to see what it means for your child.
+          Explore seven developmental branches, from movement and hands to feelings and daily
+          life. Click a branch to expand it, then tap any skill to see what it means for your
+          child.
         </p>
       </div>
 
-      <div className="mx-auto mb-12 max-w-sm rounded-3xl bg-[#fdf9f0] p-5 text-center shadow-lg shadow-stone-900/5 sm:ml-16 sm:mr-auto sm:text-left">
+      <div className="mx-auto mb-10 max-w-sm rounded-3xl bg-[#fdf9f0] p-5 text-center shadow-lg shadow-stone-900/5">
         <span aria-hidden className="text-2xl">
           🌱
         </span>
@@ -83,28 +66,24 @@ export function SkillsTree({
         </button>
       </div>
 
-      {visibleBranches.length === 0 ? (
+      {withStatus.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-stone-300 bg-white p-10 text-center text-stone-500">
           No skills match the current filters. Try resetting the age range or domain.
         </div>
+      ) : activeBranch ? (
+        <BranchTreeView
+          branch={activeBranch}
+          skills={withStatus}
+          onOpenSkill={onOpenSkill}
+          onBack={() => onDomainChange('all')}
+        />
       ) : (
-        <div className="relative flex flex-col gap-10 sm:pl-16">
-          {visibleBranches.map((branch) => (
-            <div key={branch.id} className="relative">
-              <span
-                aria-hidden
-                className="absolute -left-[2.85rem] top-10 hidden h-4 w-4 rounded-full border-2 border-[#faf6ee] sm:block"
-                style={{ backgroundColor: branch.color }}
-              />
-              <BranchSection
-                branch={branch}
-                skills={withStatus.filter((s) => s.branch === branch.id)}
-                summary={snapshotResult?.branchSummaries[branch.id]}
-                onOpenSkill={onOpenSkill}
-              />
-            </div>
-          ))}
-        </div>
+        <TreeOverview
+          branches={branches}
+          skills={withStatus}
+          branchSummaries={snapshotResult?.branchSummaries}
+          onSelectBranch={onDomainChange}
+        />
       )}
     </div>
   );

@@ -67,6 +67,7 @@ export default function Home() {
             snapshotResult={snapshotResult}
             onOpenSkill={setSelectedSkill}
             onStartSnapshot={() => setSnapshotOpen(true)}
+            onDomainChange={setDomain}
           />
         </div>
       </div>
