@@ -59,7 +59,9 @@ export function TalentNode({ skill, branch, x, y, layout = 'radial', onOpen }: T
 
   const wrapperClassName =
     layout === 'radial'
-      ? 'pointer-events-none absolute flex w-12 -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center sm:w-16'
+      ? `pointer-events-none absolute flex w-12 -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center sm:w-16 ${
+          showPreview ? 'z-50' : 'z-10'
+        }`
       : 'flex w-16 flex-col items-center text-center';
   const wrapperStyle = layout === 'radial' ? { left: `${x}%`, top: `${y}%` } : undefined;
 
