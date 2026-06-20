@@ -27,17 +27,17 @@ export function SnapshotQuestion({ question, index, total, onAnswer }: SnapshotQ
         <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: branch.color }}>
           {branch.name}
         </span>
-        <span className="text-xs font-medium text-stone-400">
+        <span className="text-xs font-medium text-white/30">
           {index + 1} of {total}
         </span>
       </div>
-      <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
+      <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
         <div
-          className="h-full rounded-full bg-stone-800 transition-all"
+          className="h-full rounded-full bg-[var(--gold)] transition-all"
           style={{ width: `${((index + 1) / total) * 100}%` }}
         />
       </div>
-      <h3 className="font-serif text-xl font-semibold leading-snug text-stone-900 sm:text-2xl">
+      <h3 className="font-serif text-xl font-semibold leading-snug text-white/95 sm:text-2xl">
         {question.prompt}
       </h3>
       <div className="mt-6 grid gap-2.5">
@@ -46,7 +46,7 @@ export function SnapshotQuestion({ question, index, total, onAnswer }: SnapshotQ
             key={opt.value}
             type="button"
             onClick={() => onAnswer(opt.value)}
-            className="rounded-2xl border border-stone-200 bg-white px-5 py-3.5 text-left text-sm font-medium text-stone-700 transition hover:border-stone-400 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-300"
+            className="rounded-2xl border border-[var(--panel-border)] bg-white/[0.04] px-5 py-3.5 text-left text-sm font-medium text-white/70 transition hover:border-white/30 hover:bg-white/[0.08] focus:outline-none focus:ring-2 focus:ring-white/10"
           >
             {opt.label}
           </button>

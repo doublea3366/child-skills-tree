@@ -11,7 +11,7 @@ type DomainFilterProps = {
 export function DomainFilter({ value, onChange }: DomainFilterProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium uppercase tracking-wide text-stone-500">Domain</span>
+      <span className="text-xs font-medium uppercase tracking-wide text-white/40">Domain</span>
       <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by developmental domain">
         <button
           type="button"
@@ -19,8 +19,8 @@ export function DomainFilter({ value, onChange }: DomainFilterProps) {
           aria-pressed={value === 'all'}
           className={`rounded-full border px-3.5 py-1.5 text-sm font-medium transition ${
             value === 'all'
-              ? 'border-stone-900 bg-stone-900 text-white'
-              : 'border-stone-300 bg-white text-stone-600 hover:border-stone-400'
+              ? 'border-[var(--gold)] bg-[var(--gold)] text-[#1a1610]'
+              : 'border-[var(--panel-border)] bg-white/[0.04] text-white/60 hover:border-white/30'
           }`}
         >
           All
@@ -35,10 +35,10 @@ export function DomainFilter({ value, onChange }: DomainFilterProps) {
               aria-pressed={active}
               style={
                 active
-                  ? { backgroundColor: branch.color, borderColor: branch.color, color: 'white' }
-                  : { borderColor: branch.colorBorder }
+                  ? { backgroundColor: branch.color, borderColor: branch.color, color: '#1a1610' }
+                  : { borderColor: 'var(--panel-border)' }
               }
-              className="rounded-full border bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 transition hover:opacity-90"
+              className="rounded-full border bg-white/[0.04] px-3.5 py-1.5 text-sm font-medium text-white/60 transition hover:opacity-90"
             >
               {branch.name}
             </button>
