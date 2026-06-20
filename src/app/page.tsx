@@ -33,7 +33,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex-1 bg-[#faf6ee]">
+    <main className="flex-1 bg-[#0d0c11]">
       <Hero onStartSnapshot={() => setSnapshotOpen(true)} onExploreTree={scrollToTree} />
 
       <TreeNavigation
@@ -72,14 +72,14 @@ export default function Home() {
         </div>
       </div>
 
-      <footer className="border-t border-stone-200 bg-white px-6 py-10">
+      <footer className="border-t border-[var(--panel-border)] bg-[#0d0c11] px-6 py-10">
         <div className="mx-auto max-w-3xl space-y-4 text-center">
-          <p className="font-serif text-lg text-stone-700">
+          <p className="font-serif text-lg text-white/70">
             Help your kid build skills. Help your kid discover the world.
           </p>
           <Disclaimer />
           {childName && (
-            <p className="text-xs text-stone-400">
+            <p className="text-xs text-white/30">
               Map personalized for {childName}. Refresh the Skill Snapshot anytime to update it.
             </p>
           )}

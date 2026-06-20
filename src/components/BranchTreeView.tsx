@@ -56,15 +56,7 @@ export function BranchTreeView({ branch, skills, onOpenSkill, onBack }: BranchTr
           boxShadow: 'inset 0 0 80px rgba(0,0,0,0.5)',
         }}
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-          }}
-        />
+        <div aria-hidden className="absolute inset-0 game-grid-overlay opacity-[0.06]" />
 
         <button
           type="button"

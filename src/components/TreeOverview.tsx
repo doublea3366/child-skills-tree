@@ -41,22 +41,8 @@ export function TreeOverview({ branches, skills, branchSummaries, onSelectBranch
 
   return (
     <>
-      <div
-        className="relative hidden aspect-[16/10] w-full overflow-hidden rounded-[2rem] sm:block"
-        style={{
-          background: 'radial-gradient(circle at 50% 0%, #23222e 0%, #15141c 55%, #0d0c11 100%)',
-          boxShadow: 'inset 0 0 80px rgba(0,0,0,0.5)',
-        }}
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-          }}
-        />
+      <div className="relative hidden aspect-[16/10] w-full overflow-hidden rounded-[2rem] game-surface sm:block">
+        <div aria-hidden className="absolute inset-0 game-grid-overlay opacity-[0.06]" />
 
         <Connectors lines={lines} />
 
@@ -97,13 +83,7 @@ export function TreeOverview({ branches, skills, branchSummaries, onSelectBranch
         })}
       </div>
 
-      <div
-        className="flex flex-col gap-2.5 rounded-[2rem] p-3 sm:hidden"
-        style={{
-          background: 'radial-gradient(circle at 50% 0%, #23222e 0%, #15141c 55%, #0d0c11 100%)',
-          boxShadow: 'inset 0 0 80px rgba(0,0,0,0.5)',
-        }}
-      >
+      <div className="game-surface flex flex-col gap-2.5 rounded-[2rem] p-3 sm:hidden">
         {visibleBranches.map((branch) => {
           const branchSkills = skills.filter((s) => s.branch === branch.id);
           const positive = branchSkills.filter(
