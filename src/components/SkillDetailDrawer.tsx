@@ -89,6 +89,21 @@ export function SkillDetailDrawer({ skill, branch, onClose }: SkillDetailDrawerP
           </div>
         )}
         <ListSection title="More ideas to try" items={moreActivities} />
+        {skill.catchUpActivities && skill.catchUpActivities.length > 0 && (
+          <div className="mt-4 rounded-2xl border border-[var(--gold)]/20 bg-[var(--gold)]/[0.06] p-4">
+            <h3 className="text-sm font-semibold" style={{ color: 'var(--gold)' }}>
+              If the age window has passed
+            </h3>
+            <ul className="mt-1.5 space-y-1.5">
+              {skill.catchUpActivities.map((item) => (
+                <li key={item} className="flex gap-2 text-sm leading-relaxed text-white/60">
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.6 }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <ListSection title="Watch for" items={skill.watchFor} />
         <ListSection title="Unlocks next" items={skill.unlocks} />
 

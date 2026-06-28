@@ -42,6 +42,7 @@ export type SkillNode = {
   id: string;
   branch: BranchId;
   subBranch: string;
+  parentSkillId?: string;
   title: string;
   developmentalTerm?: string;
   ageRange: string;
@@ -51,6 +52,7 @@ export type SkillNode = {
   whyItMatters: string;
   worldItOpens: string;
   activities: string[];
+  catchUpActivities?: string[];
   watchFor: string[];
   unlocks: string[];
   parentGuidance?: string;

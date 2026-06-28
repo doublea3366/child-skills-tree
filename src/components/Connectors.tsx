@@ -4,6 +4,7 @@ type Line = {
   x2: number;
   y2: number;
   color: string;
+  secondary?: boolean;
 };
 
 type ConnectorsProps = {
@@ -18,32 +19,35 @@ export function Connectors({ lines }: ConnectorsProps) {
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
     >
-      {lines.map((line, i) => (
-        <g key={i}>
-          <line
-            x1={line.x1}
-            y1={line.y1}
-            x2={line.x2}
-            y2={line.y2}
-            stroke={line.color}
-            strokeWidth={4}
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-            opacity={0.18}
-          />
-          <line
-            x1={line.x1}
-            y1={line.y1}
-            x2={line.x2}
-            y2={line.y2}
-            stroke={line.color}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-            opacity={0.75}
-          />
-        </g>
-      ))}
+      {lines.map((line, i) =>
+        line.secondary ? (
+          <g key={i}>
+            <line
+              x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
+              stroke={line.color} strokeWidth={3} strokeLinecap="round"
+              strokeDasharray="2 3" vectorEffect="non-scaling-stroke" opacity={0.12}
+            />
+            <line
+              x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
+              stroke={line.color} strokeWidth={1} strokeLinecap="round"
+              strokeDasharray="2 3" vectorEffect="non-scaling-stroke" opacity={0.50}
+            />
+          </g>
+        ) : (
+          <g key={i}>
+            <line
+              x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
+              stroke={line.color} strokeWidth={4} strokeLinecap="round"
+              vectorEffect="non-scaling-stroke" opacity={0.18}
+            />
+            <line
+              x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}
+              stroke={line.color} strokeWidth={1.5} strokeLinecap="round"
+              vectorEffect="non-scaling-stroke" opacity={0.75}
+            />
+          </g>
+        )
+      )}
     </svg>
   );
 }
